@@ -23,7 +23,7 @@ class DemoTestCase(unittest.TestCase):
     act.phrase = 'test phrase'
     act.put()
 
-    self.assertEquals(1, len(Action.all().fetch(2)))
+    self.assertEquals(1, len(Action.query().fetch(2)))
 
 if __name__ == '__main__':
     unittest.main()
