@@ -21,12 +21,7 @@ def main(sdk_path, test_path):
 
 
 if __name__ == '__main__':
-    parser = optparse.OptionParser(USAGE)
-    options, args = parser.parse_args()
-    if len(args) != 2:
-        print 'Error: Exactly 2 arguments required.'
-        parser.print_help()
-        sys.exit(1)
-    SDK_PATH = args[0]
-    TEST_PATH = args[1]
+    import os
+    SDK_PATH = '/Applications/GoogleAppEngineLauncher.app/Contents/Resources/GoogleAppEngine-default.bundle/Contents/Resources/google_appengine'
+    TEST_PATH = os.path.join(os.path.dirname(os.path.realpath(__file__)), '..')
     main(SDK_PATH, TEST_PATH)
