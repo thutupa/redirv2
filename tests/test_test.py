@@ -1,5 +1,4 @@
 import unittest
-from google.appengine.api import memcache
 from google.appengine.ext import db
 from google.appengine.ext import testbed
 from redirect import Action
@@ -13,6 +12,7 @@ class DemoTestCase(unittest.TestCase):
     self.testbed.activate()
 
     self.testbed.init_datastore_v3_stub()
+    self.testbed.init_memcache_stub()
 
 
   def tearDown(self):
