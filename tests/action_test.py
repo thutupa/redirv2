@@ -3,7 +3,7 @@ from google.appengine.ext import db
 from google.appengine.ext import testbed
 from redirect import Action
 
-class DemoTestCase(unittest.TestCase):
+class ActionTestCase(unittest.TestCase):
 
   def setUp(self):
     # First, create an instance of the Testbed class.

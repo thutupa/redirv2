@@ -14,9 +14,7 @@ def main(sdk_path, test_path):
     sys.path.insert(0, sdk_path)
     import dev_appserver
     dev_appserver.fix_sys_path()
-    print 'test_path = ', test_path
     suite = unittest.loader.TestLoader().discover(test_path, pattern='*_test.py')
-    print 'suite = ', suite
     unittest.TextTestRunner(verbosity=2).run(suite)
 
 
