@@ -26,7 +26,7 @@ class DemoTestCase(unittest.TestCase):
     self.assertEquals(1, len(Action.query().fetch(2)))
 
 
-  def testCanFetchAttribute(self):
+  def testFetchPhraseAttribute(self):
     act = Action()
     act.phrase = 'test phrase'
     act.put()
@@ -34,6 +34,15 @@ class DemoTestCase(unittest.TestCase):
     self.assertEquals(1, len(Action.query().fetch(2)))
     fetched = Action.query().fetch(2)[0]
     self.assertEquals(fetched.phrase, act.phrase)
+
+  def testFetchRedirectAttribute(self):
+    act = Action()
+    act.redirect_link = 'test phrase'
+    act.put()
+
+    self.assertEquals(1, len(Action.query().fetch(2)))
+    fetched = Action.query().fetch(2)[0]
+    self.assertEquals(fetched.redirect_link, act.redirect_link)
 
 if __name__ == '__main__':
     unittest.main()
