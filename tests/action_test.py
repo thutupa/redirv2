@@ -42,6 +42,7 @@ class ActionTestCase(unittest.TestCase):
 
     self.assertEquals(1, len(Action.query().fetch(2)))
     fetched = Action.query().fetch(2)[0]
+    self.assertNotEquals(act, fetched)
     self.assertEquals(fetched.redirect_link, act.redirect_link)
 
 if __name__ == '__main__':
