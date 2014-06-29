@@ -25,15 +25,6 @@ class ActionTestCase(unittest.TestCase):
 
     self.assertEquals(1, len(Action.query().fetch(2)))
 
-  def testFetchPhraseAttribute(self):
-    TEST_PHRASE = 'test phrase'
-    act = Action(phrase=TEST_PHRASE)
-    act.put()
-
-    self.assertEquals(1, len(Action.query().fetch(2)))
-    fetched = Action.query().fetch(2)[0]
-    self.assertEquals(TEST_PHRASE, fetched.phrase)
-
   def testFetchRedirectAttribute(self):
     TEST_PHRASE = 'test phrase'
     act = Action(redirect_link=TEST_PHRASE)
