@@ -26,13 +26,13 @@ class ActionTestCase(unittest.TestCase):
     self.assertEquals(1, len(Action.query().fetch(2)))
 
   def testFetchRedirectAttribute(self):
-    TEST_PHRASE = 'test phrase'
-    act = Action(redirect_link=TEST_PHRASE)
+    TEST_LINK = 'test phrase'
+    act = Action(redirect_link=TEST_LINK)
     act.put()
 
     self.assertEquals(1, len(Action.query().fetch(2)))
     fetched = Action.query().fetch(2)[0]
-    self.assertEquals(TEST_PHRASE, fetched.redirect_link)
+    self.assertEquals(TEST_LINK, fetched.redirect_link)
 
 if __name__ == '__main__':
     unittest.main()
