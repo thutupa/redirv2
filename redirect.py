@@ -10,7 +10,8 @@ JINJA_ENVIRONMENT = jinja2.Environment(
     extensions=['jinja2.ext.autoescape'],
     autoescape=True)
 
-class Action(ndb.Model): pass
+class Action(ndb.Model):
+    phrase = ndb.StringProperty(indexed=False)
 
 class MainPage(webapp2.RequestHandler): pass
 
