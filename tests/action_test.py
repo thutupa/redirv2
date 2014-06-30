@@ -44,6 +44,18 @@ class ActionTestCase(unittest.TestCase):
     for word in TEST_KEY_WORDS:
       self.assertTrue(word in fetched.keywords)
 
+  def testKeyphraseSplitsWords(self):
+    TEST_KEY_WORDS = ['key', 'words', 'test']
+    keyPhrase = ' '.join(TEST_KEY_WORDS)
+    act = Action()
+    act.setKeywordsFromPhrase(keyPhrase)
+    act.put()
+
+    self.assertEquals(1, len(Action.query().fetch(2)))
+    fetched = Action.query().fetch(2)[0]
+    for word in TEST_KEY_WORDS:
+      self.assertTrue(word in fetched.keywords)
+
 
 if __name__ == '__main__':
     unittest.main()
