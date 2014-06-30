@@ -3,7 +3,11 @@ from google.appengine.ext import ndb
 def GetAccountKey(userId):
     return ndb.Key('Account', userId)
 
-def InsertAction(userId, phrase, link): pass
+def InsertAction(userId, phrase, link):
+    act = Action(parent=GetAccountKey(userId))
+    act.setKeywordsFromPhrase(phrase)
+    act.redirect_link = link
+    return act.put()
 
 MAX_NUM_KEYWORDS = 10
 class Action(ndb.Model):
