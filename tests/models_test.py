@@ -85,11 +85,19 @@ class ActionTestCase(unittest.TestCase):
     for word in TEST_KEY_WORDS[MAX_NUM_KEYWORDS:]:
       self.assertTrue(word not in fetched.keywords)
 
-
   def testGetAccountKey(self):
     TEST_USER_ID = 'testUserId'
     accountKey = GetAccountKey(TEST_USER_ID)
     self.assertEquals(accountKey.id(), TEST_USER_ID)
+
+  def testInsertWithAccountKey(self):
+    TEST_USER_ID = 'testUserId'
+    accountKey = GetAccountKey(TEST_USER_ID)
+    act = Action(parent=accountKey)
+    act.setKeywordsFromPhrase('a b c')
+    act.put()
+
+    self.assertEquals(1, len(Action.query(ancestor=accountKey).fetch(2)))
 
 if __name__ == '__main__':
     unittest.main()
