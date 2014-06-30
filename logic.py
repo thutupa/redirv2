@@ -13,4 +13,5 @@ def UpdateAction(key, newPhrase, newLink):
     act.redirect_link = newLink
     act.put()
 
-def DeleteAction(key): pass
+def DeleteAction(key):
+    act.delete()
