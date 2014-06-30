@@ -12,3 +12,5 @@ def UpdateAction(key, newPhrase, newLink):
     act.setKeywordsFromPhrase(newPhrase)
     act.redirect_link = newLink
     act.put()
+
+def DeleteAction(key): pass
