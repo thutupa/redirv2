@@ -14,4 +14,4 @@ def UpdateAction(key, newPhrase, newLink):
     act.put()
 
 def DeleteAction(key):
-    act.delete()
+    key.delete()
