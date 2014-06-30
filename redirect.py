@@ -11,6 +11,7 @@ JINJA_ENVIRONMENT = jinja2.Environment(
     autoescape=True)
 
 class Action(ndb.Model):
+    keywords = ndb.StringProperty(repeated=True)
     redirect_link = ndb.StringProperty(indexed=False)
 
 class MainPage(webapp2.RequestHandler): pass
