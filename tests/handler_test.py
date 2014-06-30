@@ -1,3 +1,4 @@
+from google.appengine.ext import ndb
 import webapp2
 import webtest
 import unittest
@@ -5,6 +6,9 @@ import unittest
 from redirect import AddHandler
 import redirect
 from constants import Constants
+import mock
+import logic
+
 
 class AddHandlerTest(unittest.TestCase):
     def setUp(self):
@@ -29,3 +33,10 @@ class AddHandlerTest(unittest.TestCase):
                                      {Constants.Param.PHRASE: 'test phrase'},
                                      expect_errors=True)
         self.assertEqual(response.status_int, 400)
+
+    def testMockCall(self):
+        testKey = ndb.Key('Action', 1)
+        mockTime = mock.Mock(return_value = testKey)
+        with mock.patch('logic.InsertAction', mockTime):
+            self.assertTrue(logic.InsertAction('a', 'b') is not None)
+        self.assertTrue(mockTime.call_args, (('a', 'b'),))
