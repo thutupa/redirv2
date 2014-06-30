@@ -6,3 +6,5 @@ def InsertAction(userId, phrase, link):
     act.setKeywordsFromPhrase(phrase)
     act.redirect_link = link
     return act.put()
+
+def UpdateAction(key, newPhrase, newLink): pass

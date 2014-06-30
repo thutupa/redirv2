@@ -1,8 +1,9 @@
 import unittest
 from google.appengine.ext import testbed
-from logic import InsertAction
 from models import GetAccountKey
 from models import Action
+from logic import InsertAction
+from logic import UpdateAction
 
 class ActionTestCase(unittest.TestCase):
 
@@ -40,3 +41,15 @@ class ActionTestCase(unittest.TestCase):
 
     fetched = actionKey.get()
     self.assertEquals(fetched.redirect_link, TEST_LINK)
+
+  def testUpdateAction(self):
+    TEST_USER_ID = 'testUserId'
+    TEST_PHRASE = 'this is a test'
+    TEST_LINK = 'https://www.google.com/shopping/express'
+    
+    actionKey = InsertAction(TEST_USER_ID, TEST_PHRASE, TEST_LINK)
+    TEST_LINK_2 = 'https://www.google.com'
+    UpdateAction(actionKey, TEST_PHRASE, TEST_LINK_2)
+    fetched = actionKey.get()
+    self.assertEquals(fetched.redirect_link, TEST_LINK_2)
+
