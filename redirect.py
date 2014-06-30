@@ -4,6 +4,8 @@ import jinja2
 import webapp2
 import os
 
+from constants import Constants
+
 JINJA_ENVIRONMENT = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),
     extensions=['jinja2.ext.autoescape'],
@@ -15,4 +17,5 @@ class AddHandler(webapp2.RequestHandler): pass
 
 application = webapp2.WSGIApplication([
     ('/', MainPage),
+    (Constants.Paths.ADD_PATH, AddHandler),
 ], debug=True)
