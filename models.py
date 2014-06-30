@@ -1,5 +1,7 @@
 from google.appengine.ext import ndb
 
+def GetAccountKey(userId): pass
+
 MAX_NUM_KEYWORDS = 10
 class Action(ndb.Model):
     keywords = ndb.StringProperty(repeated=True)

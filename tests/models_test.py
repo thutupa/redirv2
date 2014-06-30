@@ -3,6 +3,7 @@ from google.appengine.ext import db
 from google.appengine.ext import testbed
 from models import Action
 from models import MAX_NUM_KEYWORDS
+from models import GetAccountKey
 
 class ActionTestCase(unittest.TestCase):
 
@@ -84,6 +85,11 @@ class ActionTestCase(unittest.TestCase):
     for word in TEST_KEY_WORDS[MAX_NUM_KEYWORDS:]:
       self.assertTrue(word not in fetched.keywords)
 
+
+  def testGetAccountKey(self):
+    TEST_USER_ID = 'testUserId'
+    accountKey = GetAccountKey(TEST_USER_ID)
+    self.assertEquals(accountKey.id(), TEST_USER_ID)
 
 if __name__ == '__main__':
     unittest.main()
