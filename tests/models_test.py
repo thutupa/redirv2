@@ -4,7 +4,6 @@ from google.appengine.ext import testbed
 from models import Action
 from models import MAX_NUM_KEYWORDS
 from models import GetAccountKey
-from models import InsertAction
 
 class ActionTestCase(unittest.TestCase):
 
@@ -99,28 +98,6 @@ class ActionTestCase(unittest.TestCase):
     act.put()
 
     self.assertEquals(1, len(Action.query(ancestor=accountKey).fetch(2)))
-
-  def testInsertAction(self):
-    TEST_USER_ID = 'testUserId'
-    TEST_PHRASE = 'this is a test'
-    TEST_LINK = 'https://www.google.com/shopping/express'
-    
-    InsertAction(TEST_USER_ID, TEST_PHRASE, TEST_LINK)
-
-    accountKey = GetAccountKey(TEST_USER_ID)
-    self.assertEquals(1, len(Action.query(ancestor=accountKey).fetch(2)))
-    fetched = Action.query().fetch(2)[0]
-    self.assertEquals(fetched.redirect_link, TEST_LINK)
-
-  def testInsertActionReturnsKey(self):
-    TEST_USER_ID = 'testUserId'
-    TEST_PHRASE = 'this is a test'
-    TEST_LINK = 'https://www.google.com/shopping/express'
-    
-    actionKey = InsertAction(TEST_USER_ID, TEST_PHRASE, TEST_LINK)
-
-    fetched = actionKey.get()
-    self.assertEquals(fetched.redirect_link, TEST_LINK)
 
 
 if __name__ == '__main__':
