@@ -22,3 +22,10 @@ class AddHandlerTest(unittest.TestCase):
     def testAddReturns500WhenMissingPhrase(self):
         response = self.testapp.post(Constants.Paths.ADD_PATH, expect_errors=True)
         self.assertEqual(response.status_int, 400)
+
+    # Test that 400 is returned if params are missing.
+    def testAddReturns500WhenMissingRedirectLink(self):
+        response = self.testapp.post(Constants.Paths.ADD_PATH,
+                                     {Constants.Param.PHRASE: 'test phrase'},
+                                     expect_errors=True)
+        self.assertEqual(response.status_int, 400)
