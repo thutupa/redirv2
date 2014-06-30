@@ -1,6 +1,7 @@
 from google.appengine.ext import ndb
 
-def GetAccountKey(userId): pass
+def GetAccountKey(userId):
+    return ndb.Key('Account', userId)
 
 MAX_NUM_KEYWORDS = 10
 class Action(ndb.Model):
