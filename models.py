@@ -7,7 +7,7 @@ def InsertAction(userId, phrase, link):
     act = Action(parent=GetAccountKey(userId))
     act.setKeywordsFromPhrase(phrase)
     act.redirect_link = link
-    return act.put()
+    act.put()
 
 MAX_NUM_KEYWORDS = 10
 class Action(ndb.Model):

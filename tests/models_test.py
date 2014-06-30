@@ -112,5 +112,16 @@ class ActionTestCase(unittest.TestCase):
     fetched = Action.query().fetch(2)[0]
     self.assertEquals(fetched.redirect_link, TEST_LINK)
 
+  def testInsertActionReturnsKey(self):
+    TEST_USER_ID = 'testUserId'
+    TEST_PHRASE = 'this is a test'
+    TEST_LINK = 'https://www.google.com/shopping/express'
+    
+    actionKey = InsertAction(TEST_USER_ID, TEST_PHRASE, TEST_LINK)
+
+    fetched = actionKey.get()
+    self.assertEquals(fetched.redirect_link, TEST_LINK)
+
+
 if __name__ == '__main__':
     unittest.main()
