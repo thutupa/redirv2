@@ -12,7 +12,8 @@ class AddHandlerTest(unittest.TestCase):
         app = redirect.application
         self.testapp = webtest.TestApp(app)
 
-    # Test the handler.
-    def testAddHandlerReturnErrorWhenCalledWithNoParams(self):
-        response = self.testapp.post(Constants.Paths.ADD_PATH)
-        self.assertEqual(response.status_int, 500)
+    # Test something is setup to handle
+    def testAddHandlerExistsForPost(self):
+        response = self.testapp.post(Constants.Paths.ADD_PATH, expect_errors=True)
+        self.assertNotEqual(response.status_int, 405)
+        self.assertNotEqual(response.status_int, 404)

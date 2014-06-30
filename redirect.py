@@ -13,7 +13,9 @@ JINJA_ENVIRONMENT = jinja2.Environment(
 
 class MainPage(webapp2.RequestHandler): pass
 
-class AddHandler(webapp2.RequestHandler): pass
+class AddHandler(webapp2.RequestHandler):
+    def post(self):
+        raise Exception('Not implemented')
 
 application = webapp2.WSGIApplication([
     ('/', MainPage),
