@@ -2,6 +2,7 @@ import unittest
 from google.appengine.ext import db
 from google.appengine.ext import testbed
 from models import Action
+from models import MAX_NUM_KEYWORDS
 
 class ActionTestCase(unittest.TestCase):
 
@@ -69,6 +70,19 @@ class ActionTestCase(unittest.TestCase):
     for word in TEST_KEY_WORDS:
       self.assertTrue(word in fetched.keywords)
 
+  def testKeyphraseAcceptsMax(self):
+    TEST_KEY_WORDS = [str(i) for i in range(MAX_NUM_KEYWORDS + 100)]
+    keyPhrase = ' '.join(TEST_KEY_WORDS)
+    act = Action()
+    act.setKeywordsFromPhrase(keyPhrase)
+    act.put()
+
+    self.assertEquals(1, len(Action.query().fetch(2)))
+    fetched = Action.query().fetch(2)[0]
+    for word in TEST_KEY_WORDS[:MAX_NUM_KEYWORDS]:
+      self.assertTrue(word in fetched.keywords)
+    for word in TEST_KEY_WORDS[MAX_NUM_KEYWORDS:]:
+      self.assertTrue(word not in fetched.keywords)
 
 
 if __name__ == '__main__':
