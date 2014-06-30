@@ -1,7 +1,7 @@
 import unittest
 from google.appengine.ext import db
 from google.appengine.ext import testbed
-from redirect import Action
+from models import Action
 
 class ActionTestCase(unittest.TestCase):
 
