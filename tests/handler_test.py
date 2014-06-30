@@ -40,3 +40,14 @@ class AddHandlerTest(unittest.TestCase):
         with mock.patch('logic.InsertAction', mockTime):
             self.assertTrue(logic.InsertAction('a', 'b') is not None)
         self.assertTrue(mockTime.call_args, (('a', 'b'),))
+
+    def testAddDoesNotInvokeInsertActionWhenParamsAreNotGiven(self):
+        testKey = ndb.Key('Action', 1)
+        mockTime = mock.Mock(return_value = testKey)
+        with mock.patch('logic.InsertAction', mockTime):
+            response = self.testapp.post(Constants.Paths.ADD_PATH,
+                                         {Constants.Param.PHRASE: 'test phrase'},
+                                         expect_errors=True)
+            self.assertEqual(response.status_int, 400)
+        
+        self.assertTrue(mockTime.call_args is None)
