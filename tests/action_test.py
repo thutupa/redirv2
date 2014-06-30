@@ -56,6 +56,20 @@ class ActionTestCase(unittest.TestCase):
     for word in TEST_KEY_WORDS:
       self.assertTrue(word in fetched.keywords)
 
+  def testKeyphraseLowerCasesWords(self):
+    TEST_KEY_WORDS = ['key', 'words', 'test']
+    TEST_KEY_WORDS_NON_LOWER = ['KEY', 'Words', 'tEst']
+    keyPhrase = ' '.join(TEST_KEY_WORDS_NON_LOWER)
+    act = Action()
+    act.setKeywordsFromPhrase(keyPhrase)
+    act.put()
+
+    self.assertEquals(1, len(Action.query().fetch(2)))
+    fetched = Action.query().fetch(2)[0]
+    for word in TEST_KEY_WORDS:
+      self.assertTrue(word in fetched.keywords)
+
+
 
 if __name__ == '__main__':
     unittest.main()
