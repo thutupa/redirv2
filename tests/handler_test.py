@@ -44,41 +44,41 @@ class AddHandlerTest(unittest.TestCase):
 
     def testMockCall(self):
         testKey = ndb.Key('Action', 1)
-        mockTime = mock.Mock(return_value = testKey)
-        with mock.patch('logic.InsertAction', mockTime):
+        mockInsertAction = mock.Mock(return_value = testKey)
+        with mock.patch('logic.InsertAction', mockInsertAction):
             self.assertTrue(logic.InsertAction('a', 'b') is not None)
-        self.assertTrue(mockTime.call_args, (('a', 'b'),))
+        self.assertTrue(mockInsertAction.call_args, (('a', 'b'),))
 
     def testAddDoesNotInvokeInsertActionWhenParamsAreNotGiven(self):
         testKey = ndb.Key('Action', 1)
-        mockTime = mock.Mock(return_value = testKey)
-        with mock.patch('logic.InsertAction', mockTime):
+        mockInsertAction = mock.Mock(return_value = testKey)
+        with mock.patch('logic.InsertAction', mockInsertAction):
             response = self.testapp.post(Constants.Paths.ADD_PATH,
                                          {Constants.Param.PHRASE: 'test phrase'},
                                          expect_errors=True)
             self.assertEqual(response.status_int, 400)
         
-        self.assertTrue(mockTime.call_args is None)
+        self.assertTrue(mockInsertAction.call_args is None)
 
     def testRedirectIfUserIsNotLoggedIn(self):
         TEST_PHRASE = 'test phrase'
         TEST_LINK = 'https://www.facebook.com'
         testKey = ndb.Key('Action', 1)
-        mockTime = mock.Mock(return_value = testKey)
-        with mock.patch('logic.InsertAction', mockTime):
+        mockInsertAction = mock.Mock(return_value = testKey)
+        with mock.patch('logic.InsertAction', mockInsertAction):
             response = self.testapp.post(Constants.Paths.ADD_PATH,
                                          {Constants.Param.PHRASE: TEST_PHRASE,
                                           Constants.Param.REDIRECT_LINK: TEST_LINK},
                                          expect_errors=True)
             self.assertEqual(response.status_int, 302)
-        self.assertTrue(mockTime.call_args is None)
+        self.assertTrue(mockInsertAction.call_args is None)
 
     def testAddInvokesInsertActionWhenDataPresent(self):
         TEST_PHRASE = 'test phrase'
         TEST_LINK = 'https://www.facebook.com'
         testKey = ndb.Key('Action', 1)
-        mockTime = mock.Mock(return_value = testKey)
-        with mock.patch('logic.InsertAction', mockTime):
+        mockInsertAction = mock.Mock(return_value = testKey)
+        with mock.patch('logic.InsertAction', mockInsertAction):
             self.testbed.setup_env(USER_EMAIL='usermail@gmail.com',USER_ID='1',
                                    USER_IS_ADMIN='0', overwrite=True)
             response = self.testapp.post(Constants.Paths.ADD_PATH,
@@ -86,14 +86,14 @@ class AddHandlerTest(unittest.TestCase):
                                           Constants.Param.REDIRECT_LINK: TEST_LINK},
                                          expect_errors=True)
         
-        self.assertTrue(mockTime.call_args == (('1', unicode(TEST_PHRASE), unicode(TEST_LINK)),))
+        self.assertTrue(mockInsertAction.call_args == (('1', unicode(TEST_PHRASE), unicode(TEST_LINK)),))
 
     def testAddReturnsInsertedKey(self):
         TEST_PHRASE = 'test phrase'
         TEST_LINK = 'https://www.facebook.com'
         testKey = ndb.Key('Action', 1)
-        mockTime = mock.Mock(return_value = testKey)
-        with mock.patch('logic.InsertAction', mockTime):
+        mockInsertAction = mock.Mock(return_value = testKey)
+        with mock.patch('logic.InsertAction', mockInsertAction):
             self.testbed.setup_env(USER_EMAIL='usermail@gmail.com',USER_ID='1',
                                    USER_IS_ADMIN='0', overwrite=True)
             response = self.testapp.post(Constants.Paths.ADD_PATH,
