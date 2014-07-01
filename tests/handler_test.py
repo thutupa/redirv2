@@ -87,3 +87,17 @@ class AddHandlerTest(unittest.TestCase):
                                          expect_errors=True)
         
         self.assertTrue(mockTime.call_args == (('1', unicode(TEST_PHRASE), unicode(TEST_LINK)),))
+
+    def testAddReturnsInsertedKey(self):
+        TEST_PHRASE = 'test phrase'
+        TEST_LINK = 'https://www.facebook.com'
+        testKey = ndb.Key('Action', 1)
+        mockTime = mock.Mock(return_value = testKey)
+        with mock.patch('logic.InsertAction', mockTime):
+            self.testbed.setup_env(USER_EMAIL='usermail@gmail.com',USER_ID='1',
+                                   USER_IS_ADMIN='0', overwrite=True)
+            response = self.testapp.post(Constants.Paths.ADD_PATH,
+                                         {Constants.Param.PHRASE: TEST_PHRASE,
+                                          Constants.Param.REDIRECT_LINK: TEST_LINK},
+                                         expect_errors=True)
+            self.assertEqual(')];{id: 1}')
