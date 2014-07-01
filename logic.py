@@ -1,3 +1,4 @@
+from google.appengine.ext import ndb
 from models import Action
 from models import GetAccountKey
 
@@ -7,8 +8,9 @@ def InsertAction(userId, phrase, link):
     act.redirect_link = link
     return act.put()
 
-def UpdateAction(key, newPhrase, newLink):
-    act = key.get()
+def UpdateAction(userId, actionId, newPhrase, newLink):
+    actionKeyPairs = GetAccountKey(userId).pairs() + (('Action', actionId),) 
+    act = ndb.Key(pairs=actionKeyPairs).get()
     act.setKeywordsFromPhrase(newPhrase)
     act.redirect_link = newLink
     act.put()
