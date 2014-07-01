@@ -1,5 +1,4 @@
 import unittest
-from google.appengine.ext import db
 from google.appengine.ext import testbed
 from models import Action
 from models import MAX_NUM_KEYWORDS

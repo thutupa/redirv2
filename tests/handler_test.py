@@ -1,4 +1,5 @@
 from google.appengine.ext import ndb
+from google.appengine.ext import testbed
 import webapp2
 import webtest
 import unittest
@@ -15,6 +16,13 @@ class AddHandlerTest(unittest.TestCase):
         # Create a WSGI application.
         app = redirect.application
         self.testapp = webtest.TestApp(app)
+        # First, create an instance of the Testbed class.
+        self.testbed = testbed.Testbed()
+        self.testbed.activate()
+        self.testbed.init_user_stub()
+
+    def tearDown(self):
+        self.testbed.deactivate()
 
     # Test something is setup to handle /add
     def testAddHandlerExistsForPost(self):
