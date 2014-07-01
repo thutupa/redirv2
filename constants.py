@@ -6,3 +6,4 @@ class Constants:
     class Param:
         PHRASE = 'phrase'
         REDIRECT_LINK = 'redirect_link'
+        ID = 'id'

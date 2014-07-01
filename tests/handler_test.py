@@ -101,3 +101,18 @@ class AddHandlerTest(unittest.TestCase):
                                           Constants.Param.REDIRECT_LINK: TEST_LINK},
                                          expect_errors=True)
             self.assertEqual(')];{id: 1}', response.normal_body)
+
+    def testAddDoesNotInvokeInsertActionWhenIdIsGiven(self):
+        testKey = ndb.Key('Action', 1)
+        mockInsertAction = mock.Mock(return_value = testKey)
+        mockUpdateAction = mock.Mock(return_value = testKey)
+        self.testbed.setup_env(USER_EMAIL='usermail@gmail.com',USER_ID='1',
+                               USER_IS_ADMIN='0', overwrite=True)
+        with mock.patch('logic.InsertAction', mockInsertAction):
+            with mock.patch('logic.UpdateAction', mockUpdateAction):
+                response = self.testapp.post(Constants.Paths.ADD_PATH,
+                                             {Constants.Param.PHRASE: 'test phrase',
+                                              Constants.Param.REDIRECT_LINK: 'https://www.facebook.com',
+                                              Constants.Param.ID: '1'},
+                                             expect_errors=True)
+        self.assertTrue(mockInsertAction.call_args is None)
