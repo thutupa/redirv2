@@ -86,4 +86,4 @@ class AddHandlerTest(unittest.TestCase):
                                           Constants.Param.REDIRECT_LINK: TEST_LINK},
                                          expect_errors=True)
         
-        self.assertTrue(mockTime.call_args is not None)
+        self.assertTrue(mockTime.call_args == (('1', unicode(TEST_PHRASE), unicode(TEST_LINK)),))
