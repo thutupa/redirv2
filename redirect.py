@@ -7,8 +7,11 @@ import os
 from constants import Constants
 import logic
 
+def templateDir():
+    return os.path.join(os.path.dirname(__file__), 'templates')
+
 JINJA_ENVIRONMENT = jinja2.Environment(
-    loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),
+    loader=jinja2.FileSystemLoader(templateDir()),
     extensions=['jinja2.ext.autoescape'],
     autoescape=True)
 
@@ -25,7 +28,10 @@ class AddHandler(webapp2.RequestHandler):
         if not user:
             self.redirect(users.create_login_url(self.request.uri))
             return
-        logic.InsertAction(user.user_id(), phrase, redirect_link)
+        insertedKey = logic.InsertAction(user.user_id(), phrase, redirect_link)
+        template = JINJA_ENVIRONMENT.get_template('insert.json')
+        self.response.write(template.render({'id': insertedKey.id()}))
+
     
 
 application = webapp2.WSGIApplication([
