@@ -51,3 +51,17 @@ class AddHandlerTest(unittest.TestCase):
             self.assertEqual(response.status_int, 400)
         
         self.assertTrue(mockTime.call_args is None)
+
+
+    def testAddInvokesInsertActionWhenParamsAreGiven(self):
+        TEST_PHRASE = 'test phrase'
+        TEST_LINK = 'https://www.facebook.com'
+        testKey = ndb.Key('Action', 1)
+        mockTime = mock.Mock(return_value = testKey)
+        with mock.patch('logic.InsertAction', mockTime):
+            response = self.testapp.post(Constants.Paths.ADD_PATH,
+                                         {Constants.Param.PHRASE: TEST_PHRASE,
+                                          Constants.Param.REDIRECT_LINK: TEST_LINK},
+                                         expect_errors=True)
+        
+        self.assertTrue(mockTime.call_args is not None)
