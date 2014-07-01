@@ -100,4 +100,4 @@ class AddHandlerTest(unittest.TestCase):
                                          {Constants.Param.PHRASE: TEST_PHRASE,
                                           Constants.Param.REDIRECT_LINK: TEST_LINK},
                                          expect_errors=True)
-            self.assertEqual(')];{id: 1}')
+            self.assertEqual(')];{id: 1}', response.normal_body)
