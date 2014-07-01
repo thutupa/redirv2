@@ -5,6 +5,7 @@ import webapp2
 import os
 
 from constants import Constants
+import logic
 
 JINJA_ENVIRONMENT = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),
@@ -24,7 +25,7 @@ class AddHandler(webapp2.RequestHandler):
         if not user:
             self.redirect(users.create_login_url(self.request.uri))
             return
-        raise Exception('Not implemented')
+        logic.InsertAction(user.user_id(), phrase, redirect_link)
     
 
 application = webapp2.WSGIApplication([
