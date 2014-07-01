@@ -50,7 +50,7 @@ class ActionTestCase(unittest.TestCase):
     
     actionKey = InsertAction(TEST_USER_ID, TEST_PHRASE, TEST_LINK)
     TEST_LINK_2 = 'https://www.google.com'
-    UpdateAction(actionKey, TEST_PHRASE, TEST_LINK_2)
+    UpdateAction(TEST_USER_ID, actionKey.id(), TEST_PHRASE, TEST_LINK_2)
     fetched = actionKey.get()
     self.assertEquals(fetched.redirect_link, TEST_LINK_2)
 
@@ -61,7 +61,7 @@ class ActionTestCase(unittest.TestCase):
     
     actionKey = InsertAction(TEST_USER_ID, TEST_PHRASE, TEST_LINK)
     TEST_PHRASE_2 = 'marky mark is whalberg'
-    UpdateAction(actionKey, TEST_PHRASE_2, TEST_LINK)
+    UpdateAction(TEST_USER_ID, actionKey.id(), TEST_PHRASE_2, TEST_LINK)
     fetched = actionKey.get()
     for word in TEST_PHRASE_2.split(' '):
       self.assertTrue(word in fetched.keywords)
