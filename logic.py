@@ -13,7 +13,7 @@ def UpdateAction(userId, actionId, newPhrase, newLink):
     act = ndb.Key(pairs=actionKeyPairs).get()
     act.setKeywordsFromPhrase(newPhrase)
     act.redirect_link = newLink
-    act.put()
+    return act.put()
 
 def DeleteAction(key):
     key.delete()

@@ -28,9 +28,13 @@ class AddHandler(webapp2.RequestHandler):
         if not user:
             self.redirect(users.create_login_url(self.request.uri))
             return
-        insertedKey = logic.InsertAction(user.user_id(), phrase, redirect_link)
+        id = self.request.get(Constants.Param.ID, '')
+        if id:
+            actionKey = logic.UpdateAction(user.user_id(), id, phrase, redirect_link)
+        else:
+            actionKey = logic.InsertAction(user.user_id(), phrase, redirect_link)
         template = JINJA_ENVIRONMENT.get_template('insert.json')
-        self.response.write(template.render({'id': insertedKey.id()}))
+        self.response.write(template.render({'id': actionKey.id()}))
 
     
 
