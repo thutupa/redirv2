@@ -24,8 +24,13 @@ class RedirectHandlerTest(unittest.TestCase):
     def tearDown(self):
         self.testbed.deactivate()
 
-    # Test something is setup to handle /add
+    # Test something is setup to handle /redirect
     def testRedirectHandlerExistsForGet(self):
         response = self.testapp.get(Constants.Paths.REDIRECT_PATH, expect_errors=True)
         self.assertNotEqual(response.status_int, 405)
         self.assertNotEqual(response.status_int, 404)
+
+    # Test that it return 400 when match param is not given
+    def testRedirectHandlerReturns400WithNoParam(self):
+        response = self.testapp.get(Constants.Paths.REDIRECT_PATH, expect_errors=True)
+        self.assertEqual(response.status_int, 400)
