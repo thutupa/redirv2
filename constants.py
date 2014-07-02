@@ -2,6 +2,7 @@
 class Constants:
     class Paths:
         ADD_PATH = '/add'
+        REDIRECT_PATH = '/redirect'
 
     class Param:
         PHRASE = 'phrase'
