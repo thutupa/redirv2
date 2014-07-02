@@ -17,3 +17,6 @@ def UpdateAction(userId, actionId, newPhrase, newLink):
 
 def DeleteAction(key):
     key.delete()
+
+def SearchAction(keywords):
+    raise Exception('Not Implemented')
