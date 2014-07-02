@@ -39,6 +39,10 @@ class AddHandler(webapp2.RequestHandler):
 
 class RedirectHandler(webapp2.RequestHandler):
     def get(self):
+        match = self.request.get(Constants.Param.MATCH, '')
+        if not match:
+            self.response.set_status(400)
+            return
         raise Exception('Not Implemented')
     
 
