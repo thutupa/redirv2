@@ -20,3 +20,6 @@ def DeleteAction(key):
 
 def SearchAction(keywords):
     raise Exception('Not Implemented')
+
+def SplitPhrase(phrase):
+    raise Exception('Not Implemented')

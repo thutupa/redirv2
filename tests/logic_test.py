@@ -2,10 +2,12 @@ import unittest
 from google.appengine.ext import testbed
 from models import GetAccountKey
 from models import Action
+from models import MAX_NUM_KEYWORDS
 from logic import InsertAction
 from logic import UpdateAction
 from logic import DeleteAction
 from logic import SearchAction
+from logic import SplitPhrase
 
 class ActionTestCase(unittest.TestCase):
 
@@ -85,3 +87,33 @@ class ActionTestCase(unittest.TestCase):
     accountKey = GetAccountKey(TEST_USER_ID)
     actionKey = InsertAction(TEST_USER_ID, TEST_PHRASE, TEST_LINK)
     self.assertEquals([], SearchAction('non-test-word'))
+
+
+  def testKeyphraseSplitsWords(self):
+    TEST_KEY_WORDS = ['key', 'words', 'test']
+    keyPhrase = ' '.join(TEST_KEY_WORDS)
+    words = SplitPhrase(keyPhrase)
+
+    for word in TEST_KEY_WORDS:
+      self.assertTrue(word in words)
+
+  def testKeyphraseLowerCasesWords(self):
+    TEST_KEY_WORDS = ['key', 'words', 'test']
+    TEST_KEY_WORDS_NON_LOWER = ['KEY', 'Words', 'tEst']
+    keyPhrase = ' '.join(TEST_KEY_WORDS_NON_LOWER)
+    words = SplitPhrase(keyPhrase)
+
+    for word in TEST_KEY_WORDS:
+      self.assertTrue(word in words)
+
+
+  def testKeyphraseAcceptsMax(self):
+    TEST_KEY_WORDS = [str(i) for i in range(MAX_NUM_KEYWORDS + 100)]
+    keyPhrase = ' '.join(TEST_KEY_WORDS)
+    words = SplitPhrase(keyPhrase)
+
+    for word in TEST_KEY_WORDS[:MAX_NUM_KEYWORDS]:
+      self.assertTrue(word in fetched.keywords)
+    for word in TEST_KEY_WORDS[MAX_NUM_KEYWORDS:]:
+      self.assertTrue(word not in fetched.keywords)
+

@@ -44,46 +44,6 @@ class ActionTestCase(unittest.TestCase):
     fetched = Action.query().fetch(2)[0]
     for word in TEST_KEY_WORDS:
       self.assertTrue(word in fetched.keywords)
-
-  def testKeyphraseSplitsWords(self):
-    TEST_KEY_WORDS = ['key', 'words', 'test']
-    keyPhrase = ' '.join(TEST_KEY_WORDS)
-    act = Action()
-    act.setKeywordsFromPhrase(keyPhrase)
-    act.put()
-
-    self.assertEquals(1, len(Action.query().fetch(2)))
-    fetched = Action.query().fetch(2)[0]
-    for word in TEST_KEY_WORDS:
-      self.assertTrue(word in fetched.keywords)
-
-  def testKeyphraseLowerCasesWords(self):
-    TEST_KEY_WORDS = ['key', 'words', 'test']
-    TEST_KEY_WORDS_NON_LOWER = ['KEY', 'Words', 'tEst']
-    keyPhrase = ' '.join(TEST_KEY_WORDS_NON_LOWER)
-    act = Action()
-    act.setKeywordsFromPhrase(keyPhrase)
-    act.put()
-
-    self.assertEquals(1, len(Action.query().fetch(2)))
-    fetched = Action.query().fetch(2)[0]
-    for word in TEST_KEY_WORDS:
-      self.assertTrue(word in fetched.keywords)
-
-  def testKeyphraseAcceptsMax(self):
-    TEST_KEY_WORDS = [str(i) for i in range(MAX_NUM_KEYWORDS + 100)]
-    keyPhrase = ' '.join(TEST_KEY_WORDS)
-    act = Action()
-    act.setKeywordsFromPhrase(keyPhrase)
-    act.put()
-
-    self.assertEquals(1, len(Action.query().fetch(2)))
-    fetched = Action.query().fetch(2)[0]
-    for word in TEST_KEY_WORDS[:MAX_NUM_KEYWORDS]:
-      self.assertTrue(word in fetched.keywords)
-    for word in TEST_KEY_WORDS[MAX_NUM_KEYWORDS:]:
-      self.assertTrue(word not in fetched.keywords)
-
   def testGetAccountKey(self):
     TEST_USER_ID = 'testUserId'
     accountKey = GetAccountKey(TEST_USER_ID)
