@@ -36,13 +36,13 @@ class RedirectHandlerTest(unittest.TestCase):
         self.assertEqual(response.status_int, 400)
 
     # Test that it invokes SearchAction when match param is given.
-    def testRedirectInvokesSearchActionWithParam(self):
-        mockSearchAction = mock.Mock(return_value = None)
-        with mock.patch('logic.SearchAction', mockSearchAction):
-            try:
-                response = self.testapp.get(Constants.Path.REDIRECT_PATH,
-                                            {Constants.Param.MATCH: 'test phrase'},
-                                            expect_errors=True)
-            except:
-                pass
-        self.assertTrue(mockSearchAction.call_args is not None)
+#    def testRedirectInvokesSearchActionWithParam(self):
+#        mockSearchAction = mock.Mock(return_value = None)
+#        with mock.patch('logic.SearchAction', mockSearchAction):
+#            try:
+#                response = self.testapp.get(Constants.Path.REDIRECT_PATH,
+#                                            {Constants.Param.MATCH: 'test phrase'},
+#                                            expect_errors=True)
+#            except:
+#                pass
+#        self.assertTrue(mockSearchAction.call_args is not None)
