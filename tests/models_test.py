@@ -53,7 +53,7 @@ class ActionTestCase(unittest.TestCase):
     TEST_USER_ID = 'testUserId'
     accountKey = GetAccountKey(TEST_USER_ID)
     act = Action(parent=accountKey)
-    act.setKeywordsFromPhrase('a b c')
+    act.keywords = ['a', 'b', 'c']
     act.put()
 
     self.assertEquals(1, len(Action.query(ancestor=accountKey).fetch(2)))
