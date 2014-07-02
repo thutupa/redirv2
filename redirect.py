@@ -36,9 +36,14 @@ class AddHandler(webapp2.RequestHandler):
         template = JINJA_ENVIRONMENT.get_template('insert.json')
         self.response.write(template.render({'id': actionKey.id()}))
 
+
+class RedirectHandler(webapp2.RequestHandler):
+    def get(self):
+        raise Exception('Not Implemented')
     
 
 application = webapp2.WSGIApplication([
     ('/', MainPage),
     (Constants.Paths.ADD_PATH, AddHandler),
+    (Constants.Paths.REDIRECT_PATH, RedirectHandler),
 ], debug=True)
