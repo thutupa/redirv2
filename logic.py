@@ -18,8 +18,10 @@ def UpdateAction(userId, actionId, newPhrase, newLink):
 def DeleteAction(key):
     key.delete()
 
-def SearchAction(phrase):
-    return []
+def SearchAction(userId, phrase):
+    matchingActionsQuery = Action.query(Action.keywords.IN(SplitPhrase(phrase)),
+                                        ancestor=GetAccountKey(userId))
+    return matchingActionsQuery.fetch()
 
 # temporary import of MAX_NUM_KEYWORDS
 from models import MAX_NUM_KEYWORDS

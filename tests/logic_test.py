@@ -86,7 +86,7 @@ class ActionTestCase(unittest.TestCase):
     
     accountKey = GetAccountKey(TEST_USER_ID)
     actionKey = InsertAction(TEST_USER_ID, TEST_PHRASE, TEST_LINK)
-    self.assertEquals([], SearchAction('non-test-word'))
+    self.assertEquals([], SearchAction(TEST_USER_ID, 'non-test-word'))
 
   def testSearchActionReturnsMatchOnSingleKeyword(self):
     TEST_USER_ID = 'testUserId'
@@ -96,7 +96,7 @@ class ActionTestCase(unittest.TestCase):
     accountKey = GetAccountKey(TEST_USER_ID)
     actionKey = InsertAction(TEST_USER_ID, ' '.join(TEST_KEY_WORDS), TEST_LINK)
     for word in TEST_KEY_WORDS:
-      searchResults = SearchAction(word)
+      searchResults = SearchAction(TEST_USER_ID, word)
       self.assertEqual(1, len(searchResults))
       self.assertEqual(TEST_LINK, searchResults[0].redirect_link)
 
