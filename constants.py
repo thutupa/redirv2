@@ -1,6 +1,6 @@
 
 class Constants:
-    class Paths:
+    class Path:
         ADD_PATH = '/add'
         REDIRECT_PATH = '/redirect'
 

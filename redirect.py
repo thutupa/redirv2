@@ -48,6 +48,6 @@ class RedirectHandler(webapp2.RequestHandler):
 
 application = webapp2.WSGIApplication([
     ('/', MainPage),
-    (Constants.Paths.ADD_PATH, AddHandler),
-    (Constants.Paths.REDIRECT_PATH, RedirectHandler),
+    (Constants.Path.ADD_PATH, AddHandler),
+    (Constants.Path.REDIRECT_PATH, RedirectHandler),
 ], debug=True)

@@ -26,18 +26,18 @@ class AddHandlerTest(unittest.TestCase):
 
     # Test something is setup to handle /add
     def testAddHandlerExistsForPost(self):
-        response = self.testapp.post(Constants.Paths.ADD_PATH, expect_errors=True)
+        response = self.testapp.post(Constants.Path.ADD_PATH, expect_errors=True)
         self.assertNotEqual(response.status_int, 405)
         self.assertNotEqual(response.status_int, 404)
 
     # Test that 400 is returned if params are missing.
     def testAddReturns500WhenMissingPhrase(self):
-        response = self.testapp.post(Constants.Paths.ADD_PATH, expect_errors=True)
+        response = self.testapp.post(Constants.Path.ADD_PATH, expect_errors=True)
         self.assertEqual(response.status_int, 400)
 
     # Test that 400 is returned if params are missing.
     def testAddReturns500WhenMissingRedirectLink(self):
-        response = self.testapp.post(Constants.Paths.ADD_PATH,
+        response = self.testapp.post(Constants.Path.ADD_PATH,
                                      {Constants.Param.PHRASE: 'test phrase'},
                                      expect_errors=True)
         self.assertEqual(response.status_int, 400)
@@ -53,7 +53,7 @@ class AddHandlerTest(unittest.TestCase):
         testKey = ndb.Key('Action', 1)
         mockInsertAction = mock.Mock(return_value = testKey)
         with mock.patch('logic.InsertAction', mockInsertAction):
-            response = self.testapp.post(Constants.Paths.ADD_PATH,
+            response = self.testapp.post(Constants.Path.ADD_PATH,
                                          {Constants.Param.PHRASE: 'test phrase'},
                                          expect_errors=True)
             self.assertEqual(response.status_int, 400)
@@ -66,7 +66,7 @@ class AddHandlerTest(unittest.TestCase):
         testKey = ndb.Key('Action', 1)
         mockInsertAction = mock.Mock(return_value = testKey)
         with mock.patch('logic.InsertAction', mockInsertAction):
-            response = self.testapp.post(Constants.Paths.ADD_PATH,
+            response = self.testapp.post(Constants.Path.ADD_PATH,
                                          {Constants.Param.PHRASE: TEST_PHRASE,
                                           Constants.Param.REDIRECT_LINK: TEST_LINK},
                                          expect_errors=True)
@@ -81,7 +81,7 @@ class AddHandlerTest(unittest.TestCase):
         with mock.patch('logic.InsertAction', mockInsertAction):
             self.testbed.setup_env(USER_EMAIL='usermail@gmail.com',USER_ID='1',
                                    USER_IS_ADMIN='0', overwrite=True)
-            response = self.testapp.post(Constants.Paths.ADD_PATH,
+            response = self.testapp.post(Constants.Path.ADD_PATH,
                                          {Constants.Param.PHRASE: TEST_PHRASE,
                                           Constants.Param.REDIRECT_LINK: TEST_LINK},
                                          expect_errors=True)
@@ -96,7 +96,7 @@ class AddHandlerTest(unittest.TestCase):
         with mock.patch('logic.InsertAction', mockInsertAction):
             self.testbed.setup_env(USER_EMAIL='usermail@gmail.com',USER_ID='1',
                                    USER_IS_ADMIN='0', overwrite=True)
-            response = self.testapp.post(Constants.Paths.ADD_PATH,
+            response = self.testapp.post(Constants.Path.ADD_PATH,
                                          {Constants.Param.PHRASE: TEST_PHRASE,
                                           Constants.Param.REDIRECT_LINK: TEST_LINK},
                                          expect_errors=True)
@@ -112,7 +112,7 @@ class AddHandlerTest(unittest.TestCase):
         TEST_LINK = 'https://www.facebook.com'
         with mock.patch('logic.InsertAction', mockInsertAction):
             with mock.patch('logic.UpdateAction', mockUpdateAction):
-                response = self.testapp.post(Constants.Paths.ADD_PATH,
+                response = self.testapp.post(Constants.Path.ADD_PATH,
                                              {Constants.Param.PHRASE: TEST_PHRASE,
                                               Constants.Param.REDIRECT_LINK: TEST_LINK,
                                               Constants.Param.ID: '1'},
