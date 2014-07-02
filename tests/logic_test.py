@@ -113,7 +113,7 @@ class ActionTestCase(unittest.TestCase):
     words = SplitPhrase(keyPhrase)
 
     for word in TEST_KEY_WORDS[:MAX_NUM_KEYWORDS]:
-      self.assertTrue(word in fetched.keywords)
+      self.assertTrue(word in words)
     for word in TEST_KEY_WORDS[MAX_NUM_KEYWORDS:]:
-      self.assertTrue(word not in fetched.keywords)
+      self.assertTrue(word not in words)
 

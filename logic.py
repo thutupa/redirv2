@@ -21,5 +21,10 @@ def DeleteAction(key):
 def SearchAction(keywords):
     raise Exception('Not Implemented')
 
+# temporary import of MAX_NUM_KEYWORDS
+from models import MAX_NUM_KEYWORDS
 def SplitPhrase(phrase):
-    raise Exception('Not Implemented')
+    # extra split to ignore extra words
+    words = phrase.split(' ', MAX_NUM_KEYWORDS)
+    return [word.lower() for word in words[:MAX_NUM_KEYWORDS]]
+
