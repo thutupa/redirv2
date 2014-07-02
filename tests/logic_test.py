@@ -5,6 +5,7 @@ from models import Action
 from logic import InsertAction
 from logic import UpdateAction
 from logic import DeleteAction
+from logic import SearchAction
 
 class ActionTestCase(unittest.TestCase):
 
@@ -75,3 +76,12 @@ class ActionTestCase(unittest.TestCase):
     actionKey = InsertAction(TEST_USER_ID, TEST_PHRASE, TEST_LINK)
     DeleteAction(actionKey)
     self.assertEquals(0, len(Action.query(ancestor=accountKey).fetch(2)))
+
+  def testSearchActionReturnsNothingOnNonMatch(self):
+    TEST_USER_ID = 'testUserId'
+    TEST_PHRASE = 'this is a test'
+    TEST_LINK = 'https://www.google.com/shopping/express'
+    
+    accountKey = GetAccountKey(TEST_USER_ID)
+    actionKey = InsertAction(TEST_USER_ID, TEST_PHRASE, TEST_LINK)
+    self.assertEquals([], SearchAction('non-test-word'))
