@@ -39,7 +39,10 @@ class RedirectHandlerTest(unittest.TestCase):
     def testRedirectInvokesSearchActionWithParam(self):
         mockSearchAction = mock.Mock(return_value = None)
         with mock.patch('logic.SearchAction', mockSearchAction):
-            response = self.testapp.get(Constants.Path.REDIRECT_PATH,
-                                        {Constants.Param.MATCH: 'test phrase'},
-                                        expect_errors=True)
+            try:
+                response = self.testapp.get(Constants.Path.REDIRECT_PATH,
+                                            {Constants.Param.MATCH: 'test phrase'},
+                                            expect_errors=True)
+            except:
+                pass
         self.assertTrue(mockSearchAction.call_args is not None)

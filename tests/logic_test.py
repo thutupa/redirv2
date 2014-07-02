@@ -88,7 +88,6 @@ class ActionTestCase(unittest.TestCase):
     actionKey = InsertAction(TEST_USER_ID, TEST_PHRASE, TEST_LINK)
     self.assertEquals([], SearchAction('non-test-word'))
 
-
   def testKeyphraseSplitsWords(self):
     TEST_KEY_WORDS = ['key', 'words', 'test']
     keyPhrase = ' '.join(TEST_KEY_WORDS)

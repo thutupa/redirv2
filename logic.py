@@ -18,8 +18,8 @@ def UpdateAction(userId, actionId, newPhrase, newLink):
 def DeleteAction(key):
     key.delete()
 
-def SearchAction(keywords):
-    raise Exception('Not Implemented')
+def SearchAction(phrase):
+    return []
 
 # temporary import of MAX_NUM_KEYWORDS
 from models import MAX_NUM_KEYWORDS

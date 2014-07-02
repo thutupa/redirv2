@@ -43,7 +43,8 @@ class RedirectHandler(webapp2.RequestHandler):
         if not match:
             self.response.set_status(400)
             return
-        raise Exception('Not Implemented')
+        actions = logic.SearchAction(match)
+        raise Exception('Not Done')
     
 
 application = webapp2.WSGIApplication([
