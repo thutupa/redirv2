@@ -108,11 +108,14 @@ class AddHandlerTest(unittest.TestCase):
         mockUpdateAction = mock.Mock(return_value = testKey)
         self.testbed.setup_env(USER_EMAIL='usermail@gmail.com',USER_ID='1',
                                USER_IS_ADMIN='0', overwrite=True)
+        TEST_PHRASE = 'test phrase'
+        TEST_LINK = 'https://www.facebook.com'
         with mock.patch('logic.InsertAction', mockInsertAction):
             with mock.patch('logic.UpdateAction', mockUpdateAction):
                 response = self.testapp.post(Constants.Paths.ADD_PATH,
-                                             {Constants.Param.PHRASE: 'test phrase',
-                                              Constants.Param.REDIRECT_LINK: 'https://www.facebook.com',
+                                             {Constants.Param.PHRASE: TEST_PHRASE,
+                                              Constants.Param.REDIRECT_LINK: TEST_LINK,
                                               Constants.Param.ID: '1'},
                                              expect_errors=True)
         self.assertTrue(mockInsertAction.call_args is None)
+        self.assertTrue(mockUpdateAction.call_args == (('1', '1', unicode(TEST_PHRASE), unicode(TEST_LINK)),))
