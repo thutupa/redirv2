@@ -27,7 +27,7 @@ class MatchHandler(webapp2.RequestHandler):
             return
         user = users.get_current_user()
         if not user:
-            self.redirect(redirect(users.create_login_url(self.request.uri)))
+            self.redirect(users.create_login_url(self.request.uri))
             return
         raise Exception('Not implemented')
 
