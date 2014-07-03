@@ -25,4 +25,10 @@ class MainHandlerTest(unittest.TestCase):
     def tearDown(self):
         self.testbed.deactivate()
 
+    # Test something is setup to handle /add
+    def testAddHandlerExistsForPost(self):
+        response = self.testapp.post(Constants.Path.MAIN_PATH, expect_errors=True)
+        self.assertNotEqual(response.status_int, 405)
+        self.assertNotEqual(response.status_int, 404)
+
     
