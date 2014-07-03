@@ -28,7 +28,5 @@ class MainHandlerTest(unittest.TestCase):
     # Test something is setup to handle /add
     def testAddHandlerExistsForGet(self):
         response = self.testapp.get(Constants.Path.MAIN_PATH, expect_errors=True)
-        self.assertNotEqual(response.status_int, 405)
-        self.assertNotEqual(response.status_int, 404)
-
+        self.assertEqual(200, response.status_int)
     
