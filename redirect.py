@@ -15,7 +15,9 @@ JINJA_ENVIRONMENT = jinja2.Environment(
     extensions=['jinja2.ext.autoescape'],
     autoescape=True)
 
-class MainPage(webapp2.RequestHandler): pass
+class MainHandler(webapp2.RequestHandler):
+    def get(self):
+        raise Exception('Not implemented')
 
 class AddHandler(webapp2.RequestHandler):
     def post(self):
@@ -50,7 +52,7 @@ class RedirectHandler(webapp2.RequestHandler):
         
 
 application = webapp2.WSGIApplication([
-    (Constants.Path.MAIN_PATH, MainPage),
+    (Constants.Path.MAIN_PATH, MainHandler),
     (Constants.Path.ADD_PATH, AddHandler),
     (Constants.Path.REDIRECT_PATH, RedirectHandler),
 ], debug=True)
