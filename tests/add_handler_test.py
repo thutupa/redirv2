@@ -104,7 +104,7 @@ class AddHandlerTest(unittest.TestCase):
                                               Constants.Param.REDIRECT_LINK: TEST_LINK},
                                              expect_errors=True)
             self.assertEqual(mockInsertTemplate.call_args, ((str(testKey.id())),))
-            #self.assertEqual(')];{id: 1}', response.normal_body)
+            self.assertEqual(TEST_INSERT_TEMPL_VALUE, response.normal_body)
 
     def testAddDoesNotInvokeInsertActionWhenIdIsGiven(self):
         testKey = ndb.Key('Action', 1)
