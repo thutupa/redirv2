@@ -21,6 +21,11 @@ class MainHandler(webapp2.RequestHandler):
 
 class MatchHandler(webapp2.RequestHandler):
     def post(self):
+        match = self.request.get(Constants.Param.MATCH, '')
+        if not match:
+            self.response.set_status(400)
+            return
+
         raise Exception('Not implemented')
 
 class AddHandler(webapp2.RequestHandler):

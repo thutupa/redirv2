@@ -33,6 +33,5 @@ class MatchHandlerTest(unittest.TestCase):
     
     def testMatchHandlerReturns400WithNoParam(self):
         response = self.testapp.post(Constants.Path.MATCH_PATH, expect_errors=True)
-        print response.status_int
         self.assertEqual(400, response.status_int)
     
