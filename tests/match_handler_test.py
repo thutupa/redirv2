@@ -31,4 +31,8 @@ class MatchHandlerTest(unittest.TestCase):
         self.assertNotEqual(404, response.status_int)
         self.assertNotEqual(405, response.status_int)
     
+    def testMatchHandlerReturns400WithNoParam(self):
+        response = self.testapp.post(Constants.Path.MATCH_PATH, expect_errors=True)
+        print response.status_int
+        self.assertEqual(400, response.status_int)
     
