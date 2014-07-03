@@ -19,6 +19,10 @@ class MainHandler(webapp2.RequestHandler):
     def get(self):
         raise Exception('Not implemented')
 
+class MatchHandler(webapp2.RequestHandler):
+    def get(self):
+        raise Exception('Not implemented')
+
 class AddHandler(webapp2.RequestHandler):
     def post(self):
         phrase = self.request.get(Constants.Param.PHRASE, '')
@@ -53,6 +57,7 @@ class RedirectHandler(webapp2.RequestHandler):
 
 application = webapp2.WSGIApplication([
     (Constants.Path.MAIN_PATH, MainHandler),
+    (Constants.Path.MATCH_PATH, MatchHandler),
     (Constants.Path.ADD_PATH, AddHandler),
     (Constants.Path.REDIRECT_PATH, RedirectHandler),
 ], debug=True)
