@@ -3,6 +3,7 @@ from google.appengine.ext import testbed
 import webapp2
 import webtest
 import unittest
+import urlparse
 
 from redirect import AddHandler
 import redirect
@@ -57,4 +58,5 @@ class RedirectHandlerTest(unittest.TestCase):
                                         {Constants.Param.MATCH: 'test phrase'},
                                         expect_errors=True)
             self.assertEqual(302, response.status_int)
-            self.assertEqual(Constants.Path.MAIN, response.headers['Location'])
+            urlp = urlparse.urlparse(response.headers['Location'])
+            self.assertEqual(Constants.Path.MAIN_PATH, urlp.path)
