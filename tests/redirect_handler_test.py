@@ -53,10 +53,13 @@ class RedirectHandlerTest(unittest.TestCase):
         TEST_LINK2 = 'https://www.facebook.com1'
         mockSearchAction = mock.Mock(return_value = [models.Action(redirect_link=TEST_LINK),
                                                      models.Action(redirect_link=TEST_LINK2)])
+        TEST_PHRASE = 'test phrase'
         with mock.patch('logic.SearchAction', mockSearchAction):
             response = self.testapp.get(Constants.Path.REDIRECT_PATH,
-                                        {Constants.Param.MATCH: 'test phrase'},
+                                        {Constants.Param.MATCH: TEST_PHRASE},
                                         expect_errors=True)
             self.assertEqual(302, response.status_int)
             urlp = urlparse.urlparse(response.headers['Location'])
             self.assertEqual(Constants.Path.MAIN_PATH, urlp.path)
+            queryParams = urlparse.parse_qs(urlp.query)
+            self.assertEqual(TEST_PHRASE, queryParams[Constants.Param.MATCH])
