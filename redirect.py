@@ -29,7 +29,8 @@ class MatchHandler(webapp2.RequestHandler):
         if not user:
             self.redirect(users.create_login_url(self.request.uri))
             return
-        raise Exception('Not implemented')
+        actions = logic.SearchAction(user.user_id(), match)
+        raise Exception('rest is not done')
 
 class AddHandler(webapp2.RequestHandler):
     def post(self):
