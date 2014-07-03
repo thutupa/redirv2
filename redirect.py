@@ -46,8 +46,8 @@ class RedirectHandler(webapp2.RequestHandler):
         actions = logic.SearchAction(match)
         if len(actions) == 1:
             return self.redirect(actions[0].redirect_link)
-        return self.redirect(Constants.Path.MAIN_PATH)
-    
+        return self.redirect(Constants.Path.MAIN_PATH + '?' + Constants.Param.MATCH + '=' + match)
+        
 
 application = webapp2.WSGIApplication([
     (Constants.Path.MAIN_PATH, MainPage),
