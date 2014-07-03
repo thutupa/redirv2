@@ -98,7 +98,7 @@ class AddHandlerTest(unittest.TestCase):
         with mock.patch('logic.InsertAction', mockInsertAction):
             self.testbed.setup_env(USER_EMAIL='usermail@gmail.com',USER_ID='1',
                                    USER_IS_ADMIN='0', overwrite=True)
-            with mock.patch('templ.InsertJson', mockInsertTemplate):
+            with mock.patch('templ.InsertResultJson', mockInsertTemplate):
                 response = self.testapp.post(Constants.Path.ADD_PATH,
                                              {Constants.Param.PHRASE: TEST_PHRASE,
                                               Constants.Param.REDIRECT_LINK: TEST_LINK},
