@@ -31,6 +31,7 @@ def DiscoverSDKPath():
     raise Exception('Could not discover SDK Path')
 
 if __name__ == '__main__':
+    sys.dont_write_bytecode = True
     SDK_PATH = DiscoverSDKPath()
     TEST_PATH = os.path.join(os.path.dirname(os.path.realpath(__file__)), '..')
     main(SDK_PATH, TEST_PATH)
