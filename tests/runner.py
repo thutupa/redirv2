@@ -1,5 +1,6 @@
 #!/usr/bin/python
 import optparse
+import os
 import sys
 import unittest
 
@@ -18,8 +19,18 @@ def main(sdk_path, test_path):
     unittest.TextTestRunner(verbosity=2).run(suite)
 
 
+def DiscoverSDKPath():
+    BINARY = 'dev_appserver.py'
+    for pathdir in os.environ['PATH'].split(':'):
+        if not pathdir:
+            pathdir = os.getcwd()
+        binary_path = os.path.join(pathdir, BINARY)
+        if os.path.exists(binary_path):
+            binary_path = os.path.realpath(binary_path)
+            return os.path.dirname(binary_path)
+    raise Exception('Could not discover SDK Path')
+
 if __name__ == '__main__':
-    import os
-    SDK_PATH = '/Applications/GoogleAppEngineLauncher.app/Contents/Resources/GoogleAppEngine-default.bundle/Contents/Resources/google_appengine'
+    SDK_PATH = DiscoverSDKPath()
     TEST_PATH = os.path.join(os.path.dirname(os.path.realpath(__file__)), '..')
     main(SDK_PATH, TEST_PATH)
