@@ -1,1 +1,3 @@
-)];{id: {{id}}}
+)];[{% for action in actions %}
+{id: '{{action.key().id()}}', phrase: '{{action.getKeywordsAsPharse()}}', link: '{{action.redirect_link}}'},
+{%endfor%}]
