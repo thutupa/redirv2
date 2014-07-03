@@ -44,4 +44,4 @@ class RedirectHandlerTest(unittest.TestCase):
                                         {Constants.Param.MATCH: 'test phrase'},
                                         expect_errors=True)
             self.assertEqual(302, response.status_int)
-
+            self.assertEqual(TEST_LINK, response.headers['Location'])
