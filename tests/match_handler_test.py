@@ -35,3 +35,12 @@ class MatchHandlerTest(unittest.TestCase):
         response = self.testapp.post(Constants.Path.MATCH_PATH, expect_errors=True)
         self.assertEqual(400, response.status_int)
     
+    def testsMatchHandlerRedirectWithoutUser(self):
+        TEST_LINK = 'https://www.facebook.com'
+        mockSearchAction = mock.Mock(return_value = [models.Action(redirect_link=TEST_LINK)])
+        with mock.patch('logic.SearchAction', mockSearchAction):
+            response = self.testapp.get(Constants.Path.MATCH_PATH,
+                                        {Constants.Param.MATCH: 'test phrase'},
+                                        expect_errors=True)
+
+        self.assertEqual(302, response.status_int)
