@@ -50,7 +50,7 @@ class AddHandler(webapp2.RequestHandler):
             actionKey = logic.UpdateAction(user.user_id(), id, phrase, redirect_link)
         else:
             actionKey = logic.InsertAction(user.user_id(), phrase, redirect_link)
-        self.response.write(templ.InsertJson(actionId=actionKey.id()))
+        self.response.write(templ.InsertJson(actionId=str(actionKey.id())))
 
 
 class RedirectHandler(webapp2.RequestHandler):

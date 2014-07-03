@@ -103,7 +103,7 @@ class AddHandlerTest(unittest.TestCase):
                                              {Constants.Param.PHRASE: TEST_PHRASE,
                                               Constants.Param.REDIRECT_LINK: TEST_LINK},
                                              expect_errors=True)
-            self.assertEqual(mockInsertTemplate.call_args, ((str(testKey.id())),))
+            self.assertEqual(mockInsertTemplate.call_args[1], {'actionId': str(testKey.id())})
             self.assertEqual(TEST_INSERT_TEMPL_VALUE, response.normal_body)
 
     def testAddDoesNotInvokeInsertActionWhenIdIsGiven(self):
