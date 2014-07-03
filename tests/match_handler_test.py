@@ -35,12 +35,16 @@ class MatchHandlerTest(unittest.TestCase):
         response = self.testapp.get(Constants.Path.MATCH_PATH, expect_errors=True)
         self.assertEqual(400, response.status_int)
     
-    def testsMatchHandlerRedirectWithoutUser(self):
-        TEST_LINK = 'https://www.facebook.com'
+    def testMatchHandlerGoesToLoginWithoutUser(self):
         mockUserAction = mock.Mock(return_value = None)
         with mock.patch('google.appengine.api.users.get_current_user', mockUserAction):
-            response = self.testapp.get(Constants.Path.MATCH_PATH,
-                                        {Constants.Param.MATCH: 'test phrase'},
-                                        expect_errors=True)
-
+            GENERATED_REDIRECT = 'http://www.google.comu'
+            mockRedirectGen = mock.Mock(return_value = GENERATED_REDIRECT)
+            with mock.patch('google.appengine.api.users.create_login_url', mockRedirectGen):
+                response = self.testapp.get(Constants.Path.MATCH_PATH,
+                                            {Constants.Param.MATCH: 'test phrase'},
+                                            expect_errors=True)
         self.assertEqual(302, response.status_int)
+        self.assertEqual(GENERATED_REDIRECT, response.headers['Location'])
+        
+    

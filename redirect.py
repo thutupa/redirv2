@@ -25,7 +25,10 @@ class MatchHandler(webapp2.RequestHandler):
         if not match:
             self.response.set_status(400)
             return
-
+        user = users.get_current_user()
+        if not user:
+            self.redirect(redirect(users.create_login_url(self.request.uri)))
+            return
         raise Exception('Not implemented')
 
 class AddHandler(webapp2.RequestHandler):
