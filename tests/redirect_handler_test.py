@@ -62,4 +62,4 @@ class RedirectHandlerTest(unittest.TestCase):
             urlp = urlparse.urlparse(response.headers['Location'])
             self.assertEqual(Constants.Path.MAIN_PATH, urlp.path)
             queryParams = urlparse.parse_qs(urlp.query)
-            self.assertEqual(TEST_PHRASE, queryParams[Constants.Param.MATCH])
+            self.assertEqual(TEST_PHRASE, queryParams[Constants.Param.MATCH][0])
