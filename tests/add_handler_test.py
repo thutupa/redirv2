@@ -93,14 +93,17 @@ class AddHandlerTest(unittest.TestCase):
         TEST_LINK = 'https://www.facebook.com'
         testKey = ndb.Key('Action', 1)
         mockInsertAction = mock.Mock(return_value = testKey)
+        mockInsertTemplate = mock.Mock(return_value = TEST_INSERT_TEMPL_VALUE)
         with mock.patch('logic.InsertAction', mockInsertAction):
             self.testbed.setup_env(USER_EMAIL='usermail@gmail.com',USER_ID='1',
                                    USER_IS_ADMIN='0', overwrite=True)
-            response = self.testapp.post(Constants.Path.ADD_PATH,
-                                         {Constants.Param.PHRASE: TEST_PHRASE,
-                                          Constants.Param.REDIRECT_LINK: TEST_LINK},
-                                         expect_errors=True)
-            self.assertEqual(')];{id: 1}', response.normal_body)
+            with mock.patch('templ.InsertJson', mockInsertAction):
+                response = self.testapp.post(Constants.Path.ADD_PATH,
+                                             {Constants.Param.PHRASE: TEST_PHRASE,
+                                              Constants.Param.REDIRECT_LINK: TEST_LINK},
+                                             expect_errors=True)
+            self.assertEqual(mockInsertAction.call_args, ((str(testKey.id())),))
+            #self.assertEqual(')];{id: 1}', response.normal_body)
 
     def testAddDoesNotInvokeInsertActionWhenIdIsGiven(self):
         testKey = ndb.Key('Action', 1)
