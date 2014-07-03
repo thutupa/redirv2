@@ -26,8 +26,8 @@ class RedirectHandlerTest(unittest.TestCase):
         self.assertTrue(')];{id: \'testId\'}', templ.InsertResultJson('testId'))
 
     def testMatchTemplateOnEmpty(self):
-        self.assertTrue(')];[]', templ.MatchResultJson(actions=[]))
+        self.assertEqual(')];[]', templ.MatchResultJson(actions=[]))
 
     def testMatchTemplateOnSingle(self):
         actions = [FakeAction(1, ['a', 'b'], 'https://www.google.com')]
-        self.assertTrue(')];[]', templ.MatchResultJson(actions=actions))
+        self.assertEqual(')];[]', templ.MatchResultJson(actions=actions))
