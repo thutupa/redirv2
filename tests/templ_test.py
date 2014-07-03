@@ -6,6 +6,8 @@ class RedirectHandlerTest(unittest.TestCase):
 
     def tearDown(self): pass
 
-    # Test something is setup to handle /redirect
     def testInsertTemplateReturnsSomething(self):
         self.assertTrue(')];{id: \'testId\'}', templ.InsertJson('testId'))
+
+    def testMatchTemplate(self):
+        self.assertTrue(')];[]', templ.MatchResultJson(actions=[]))

@@ -14,9 +14,13 @@ JINJA_ENVIRONMENT = jinja2.Environment(
 def lookupTemplate(fname):
     return JINJA_ENVIRONMENT.get_template(fname)
 
-def InsertJson(actionId=''):
+def InsertResultJson(actionId=''):
     templ = lookupTemplate('insert.json')
     return _renderTemplate(templ, {'id': actionId})
+
+def MatchResultJson(actions=[]):
+    templ = lookupTemplate('match.json')
+    return _renderTemplate(templ, {'actions': actions})
 
 def _renderTemplate(templ, params):
     params['Constants'] = constants.Constants
