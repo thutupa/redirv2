@@ -68,4 +68,19 @@ class MatchHandlerTest(unittest.TestCase):
         self.assertTrue(mockSearchAction.call_args is not None)
         self.assertEqual(mockSearchAction.call_args, ((TEST_USER_ID, TEST_PHRASE),))
         
+    def testMatchHandlerReturnsNoMatch(self):
+        TEST_USER_ID = 'testUserId'
+        TEST_USER = TestUser(TEST_USER_ID)
+        TEST_PHRASE = 'test phrase'
+        mockUserAction = mock.Mock(return_value = TEST_USER)
+        with mock.patch('google.appengine.api.users.get_current_user', mockUserAction):
+            mockSearchAction = mock.Mock(return_value = [])
+            with mock.patch('logic.SearchAction', mockSearchAction):
+                response = self.testapp.get(Constants.Path.MATCH_PATH,
+                                            {Constants.Param.MATCH: TEST_PHRASE},
+                                            expect_errors=True)
+        self.assertEqual(200, response.status_int)
+        self.assertEqual(')];[]', response.normal_body)
+        
+        
     
