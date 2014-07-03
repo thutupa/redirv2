@@ -26,19 +26,19 @@ class MatchHandlerTest(unittest.TestCase):
         self.testbed.deactivate()
 
     # Test something is setup to handle /match
-    def testMatchHandlerExistsForPost(self):
-        response = self.testapp.post(Constants.Path.MATCH_PATH, expect_errors=True)
+    def testMatchHandlerExistsForGet(self):
+        response = self.testapp.get(Constants.Path.MATCH_PATH, expect_errors=True)
         self.assertNotEqual(404, response.status_int)
         self.assertNotEqual(405, response.status_int)
     
     def testMatchHandlerReturns400WithNoParam(self):
-        response = self.testapp.post(Constants.Path.MATCH_PATH, expect_errors=True)
+        response = self.testapp.get(Constants.Path.MATCH_PATH, expect_errors=True)
         self.assertEqual(400, response.status_int)
     
     def testsMatchHandlerRedirectWithoutUser(self):
         TEST_LINK = 'https://www.facebook.com'
-        mockSearchAction = mock.Mock(return_value = [models.Action(redirect_link=TEST_LINK)])
-        with mock.patch('logic.SearchAction', mockSearchAction):
+        mockUserAction = mock.Mock(return_value = None)
+        with mock.patch('google.appengine.api.users.get_current_user', mockUserAction):
             response = self.testapp.get(Constants.Path.MATCH_PATH,
                                         {Constants.Param.MATCH: 'test phrase'},
                                         expect_errors=True)
