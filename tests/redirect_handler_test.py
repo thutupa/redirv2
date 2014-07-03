@@ -45,3 +45,16 @@ class RedirectHandlerTest(unittest.TestCase):
                                         expect_errors=True)
             self.assertEqual(302, response.status_int)
             self.assertEqual(TEST_LINK, response.headers['Location'])
+
+    # Test that it invokes SearchAction when match param is given.
+    def testRedirectWithMoreThanOneMatch(self):
+        TEST_LINK = 'https://www.facebook.com'
+        TEST_LINK2 = 'https://www.facebook.com1'
+        mockSearchAction = mock.Mock(return_value = [models.Action(redirect_link=TEST_LINK),
+                                                     models.Action(redirect_link=TEST_LINK2)])
+        with mock.patch('logic.SearchAction', mockSearchAction):
+            response = self.testapp.get(Constants.Path.REDIRECT_PATH,
+                                        {Constants.Param.MATCH: 'test phrase'},
+                                        expect_errors=True)
+            self.assertEqual(302, response.status_int)
+            self.assertEqual(Constants.Path.MAIN, response.headers['Location'])
