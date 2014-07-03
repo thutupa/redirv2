@@ -30,7 +30,8 @@ class MatchHandler(webapp2.RequestHandler):
             self.redirect(users.create_login_url(self.request.uri))
             return
         actions = logic.SearchAction(user.user_id(), match)
-        raise Exception('rest is not done')
+        template = JINJA_ENVIRONMENT.get_template('match.json')
+        self.response.write(template.render({'actions': actions}))
 
 class AddHandler(webapp2.RequestHandler):
     def post(self):
