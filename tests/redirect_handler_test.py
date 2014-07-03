@@ -9,7 +9,7 @@ import redirect
 from constants import Constants
 import mock
 import logic
-
+import models
 
 class RedirectHandlerTest(unittest.TestCase):
     def setUp(self):
@@ -37,12 +37,11 @@ class RedirectHandlerTest(unittest.TestCase):
 
     # Test that it invokes SearchAction when match param is given.
     def testRedirectInvokesSearchActionWithParam(self):
-        mockSearchAction = mock.Mock(return_value = None)
+        TEST_LINK = 'https://www.facebook.com'
+        mockSearchAction = mock.Mock(return_value = [models.Action(redirect_link=TEST_LINK)])
         with mock.patch('logic.SearchAction', mockSearchAction):
-            try:
-                response = self.testapp.get(Constants.Path.REDIRECT_PATH,
-                                            {Constants.Param.MATCH: 'test phrase'},
-                                            expect_errors=True)
-            except:
-                pass
-        self.assertTrue(mockSearchAction.call_args is not None)
+            response = self.testapp.get(Constants.Path.REDIRECT_PATH,
+                                        {Constants.Param.MATCH: 'test phrase'},
+                                        expect_errors=True)
+            self.assertEqual(302, response.status_int)
+
