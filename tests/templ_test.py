@@ -8,4 +8,4 @@ class RedirectHandlerTest(unittest.TestCase):
 
     # Test something is setup to handle /redirect
     def testInsertTemplateReturnsSomething(self):
-        self.assertTrue(templ.InsertJson('testId') is not None)
+        self.assertTrue(')];{id: \'testId\'}', templ.InsertJson('testId'))
