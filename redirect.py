@@ -20,7 +20,7 @@ class MainHandler(webapp2.RequestHandler):
         raise Exception('Not implemented')
 
 class MatchHandler(webapp2.RequestHandler):
-    def get(self):
+    def post(self):
         raise Exception('Not implemented')
 
 class AddHandler(webapp2.RequestHandler):
