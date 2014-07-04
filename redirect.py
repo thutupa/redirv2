@@ -8,14 +8,6 @@ from constants import Constants
 import logic
 import templ
 
-def templateDir():
-    return os.path.join(os.path.dirname(__file__), 'templates')
-
-JINJA_ENVIRONMENT = jinja2.Environment(
-    loader=jinja2.FileSystemLoader(templateDir()),
-    extensions=['jinja2.ext.autoescape'],
-    autoescape=True)
-
 class MainHandler(webapp2.RequestHandler):
     def get(self):
         raise Exception('Not implemented')
@@ -31,8 +23,8 @@ class MatchHandler(webapp2.RequestHandler):
             self.redirect(users.create_login_url(self.request.uri))
             return
         actions = logic.SearchAction(user.user_id(), match)
-        template = JINJA_ENVIRONMENT.get_template('match.json')
-        self.response.write(template.render({'actions': actions}))
+        return self.response.write(templ.MatchResultJson(actions))
+
 
 class AddHandler(webapp2.RequestHandler):
     def post(self):
