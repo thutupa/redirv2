@@ -26,7 +26,7 @@ class MainHandlerTest(unittest.TestCase):
         self.testbed.deactivate()
 
     # Test something is setup to handle /
-    def testAddHandlerExistsForGet(self):
+    def testHandlerExistsForGet(self):
         response = self.testapp.get(Constants.Path.MAIN_PATH, expect_errors=True)
         self.assertEqual(200, response.status_int)
     
