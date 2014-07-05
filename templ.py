@@ -25,3 +25,6 @@ def MatchResultJson(actions=[]):
 def _renderTemplate(templ, params):
     params['Constants'] = constants.Constants
     return templ.render(params)
+
+def MainResultHtml():
+    return _renderTemplate(lookupTemplate('main.html'), {})

@@ -10,7 +10,7 @@ import templ
 
 class MainHandler(webapp2.RequestHandler):
     def get(self):
-        raise Exception('Not implemented')
+        return self.response.write(templ.MainResultHtml())
 
 class MatchHandler(webapp2.RequestHandler):
     def get(self):
