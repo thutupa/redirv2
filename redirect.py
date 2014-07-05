@@ -56,7 +56,6 @@ class RedirectHandler(webapp2.RequestHandler):
             return self.redirect(actions[0].redirect_link)
         return self.redirect(Constants.Path.MAIN_PATH + '?' + Constants.Param.MATCH + '=' + match)
         
-
 application = webapp2.WSGIApplication([
     (Constants.Path.MAIN_PATH, MainHandler),
     (Constants.Path.MATCH_PATH, MatchHandler),

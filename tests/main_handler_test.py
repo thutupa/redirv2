@@ -25,8 +25,8 @@ class MainHandlerTest(unittest.TestCase):
     def tearDown(self):
         self.testbed.deactivate()
 
-#    # Test something is setup to handle /add
-#    def testAddHandlerExistsForGet(self):
-#        response = self.testapp.get(Constants.Path.MAIN_PATH, expect_errors=True)
-#        self.assertEqual(200, response.status_int)
+    # Test something is setup to handle /
+    def testAddHandlerExistsForGet(self):
+        response = self.testapp.get(Constants.Path.MAIN_PATH, expect_errors=True)
+        self.assertEqual(200, response.status_int)
     
