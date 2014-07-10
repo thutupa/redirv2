@@ -37,10 +37,6 @@ class MatchHandlerTest(unittest.TestCase):
         self.assertNotEqual(404, response.status_int)
         self.assertNotEqual(405, response.status_int)
     
-    def testMatchHandlerReturns400WithNoParam(self):
-        response = self.testapp.get(Constants.Path.MATCH_PATH, expect_errors=True)
-        self.assertEqual(400, response.status_int)
-    
     def testMatchHandlerGoesToLoginWithoutUser(self):
         mockUserAction = mock.Mock(return_value = None)
         with mock.patch('google.appengine.api.users.get_current_user', mockUserAction):

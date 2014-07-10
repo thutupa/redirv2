@@ -15,9 +15,6 @@ class MainHandler(webapp2.RequestHandler):
 class MatchHandler(webapp2.RequestHandler):
     def get(self):
         match = self.request.get(Constants.Param.MATCH, '')
-        if not match:
-            self.response.set_status(400)
-            return
         user = users.get_current_user()
         if not user:
             self.redirect(users.create_login_url(self.request.uri))
