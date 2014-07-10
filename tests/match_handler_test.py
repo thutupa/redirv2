@@ -80,7 +80,7 @@ class MatchHandlerTest(unittest.TestCase):
                                             {Constants.Param.MATCH: TEST_PHRASE},
                                             expect_errors=True)
         self.assertEqual(200, response.status_int)
-        self.assertEqual(')];[]', response.normal_body)
+        self.assertEqual(')];[ []', response.normal_body)
         
         
     

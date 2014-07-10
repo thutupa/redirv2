@@ -1,5 +1,6 @@
 
 class Constants:
+    JSON_PREFIX = ')];['
     class Path:
         MAIN_PATH = '/'
         MATCH_PATH = '/match'

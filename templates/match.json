@@ -1,3 +1,4 @@
-)];[{% for action in actions %}
-{id: '{{action.key().id()}}', phrase: '{{action.getKeywordsAsPharse()}}', link: '{{action.redirect_link}}'},
+{{Constants.JSON_PREFIX}}
+[{% for action in actions %}
+{id: '{{action.key().urlsafe()}}', phrase: '{{action.getKeywordsAsPharse()}}', link: '{{action.redirect_link}}'}, created, :'{{action.created.strftime('%Y-%m-%d')}}'
 {%endfor%}]

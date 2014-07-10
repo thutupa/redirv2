@@ -7,3 +7,4 @@ MAX_NUM_KEYWORDS = 10
 class Action(ndb.Model):
     keywords = ndb.StringProperty(repeated=True)
     redirect_link = ndb.StringProperty(indexed=False)
+    created = ndb.DateTimeProperty(auto_now_add=True)

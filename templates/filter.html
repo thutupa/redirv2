@@ -1,0 +1,29 @@
+<style>
+table {
+    border-collapse: collapse;
+}
+
+table, th, td {
+    border: 1px solid black;
+}
+
+</style>
+
+<div id="redirects_table">
+  <table border="1px solid gray">
+    <tr>
+      <th>Keywords</th>
+      <th>Created</th>
+      <th>Edit</th>
+      <th>Delete</th>
+      <div id="redirect_data"></div>
+    </tr>
+  </table>
+</div>
+
+<form id="filterform" action="">
+  <input size=80 id="filterphrase"/> <button id="filtersubmit">Filter Results</button>
+</form>
+<script type="text/javascript">
+{% include 'filter.js' %}
+</script>
