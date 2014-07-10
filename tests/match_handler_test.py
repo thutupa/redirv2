@@ -37,17 +37,13 @@ class MatchHandlerTest(unittest.TestCase):
         self.assertNotEqual(404, response.status_int)
         self.assertNotEqual(405, response.status_int)
     
-    def testMatchHandlerGoesToLoginWithoutUser(self):
+    def testMatchHandlerErrorWithoutUser(self):
         mockUserAction = mock.Mock(return_value = None)
         with mock.patch('google.appengine.api.users.get_current_user', mockUserAction):
-            GENERATED_REDIRECT = 'http://www.google.comu'
-            mockRedirectGen = mock.Mock(return_value = GENERATED_REDIRECT)
-            with mock.patch('google.appengine.api.users.create_login_url', mockRedirectGen):
-                response = self.testapp.get(Constants.Path.MATCH_PATH,
-                                            {Constants.Param.MATCH: 'test phrase'},
-                                            expect_errors=True)
-        self.assertEqual(302, response.status_int)
-        self.assertEqual(GENERATED_REDIRECT, response.headers['Location'])
+            response = self.testapp.get(Constants.Path.MATCH_PATH,
+                                        {Constants.Param.MATCH: 'test phrase'},
+                                        expect_errors=True)
+        self.assertEqual(400, response.status_int)
  
     def testMatchHandlerInvokesSearchActionWithUser(self):
         TEST_USER_ID = 'testUserId'

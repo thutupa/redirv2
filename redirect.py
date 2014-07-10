@@ -10,15 +10,19 @@ import templ
 
 class MainHandler(webapp2.RequestHandler):
     def get(self):
+        # Ensure user is logged in.
+        if not users.get_current_user():
+            self.redirect(users.create_login_url(self.request.uri))
         return self.response.write(templ.MainResultHtml())
 
 class MatchHandler(webapp2.RequestHandler):
     def get(self):
         match = self.request.get(Constants.Param.MATCH, '')
         user = users.get_current_user()
+        # If the user is not logged in, return error. It does not make
+        # sense to return 302 on an API endpoint.
         if not user:
-            self.redirect(users.create_login_url(self.request.uri))
-            return
+              return self.response.set_status(400)
         actions = logic.SearchAction(user.user_id(), match)
         return self.response.write(templ.MatchResultJson(actions))
 
@@ -31,9 +35,11 @@ class AddHandler(webapp2.RequestHandler):
             self.response.set_status(400)
             return
         user = users.get_current_user()
+        # If the user is not logged in, return error. It does not make
+        # sense to return 302 on an API endpoint.
         if not user:
-            self.redirect(users.create_login_url(self.request.uri))
-            return
+            return self.response.set_status(400)
+
         id = self.request.get(Constants.Param.ID, '')
         if id:
             actionKey = logic.UpdateAction(user.user_id(), id, phrase, redirect_link)

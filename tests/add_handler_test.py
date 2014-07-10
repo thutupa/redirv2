@@ -60,7 +60,7 @@ class AddHandlerTest(unittest.TestCase):
         
         self.assertTrue(mockInsertAction.call_args is None)
 
-    def testRedirectIfUserIsNotLoggedIn(self):
+    def testErrorIfUserIsNotLoggedIn(self):
         TEST_PHRASE = 'test phrase'
         TEST_LINK = 'https://www.facebook.com'
         testKey = ndb.Key('Action', 1)
@@ -70,7 +70,7 @@ class AddHandlerTest(unittest.TestCase):
                                          {Constants.Param.PHRASE: TEST_PHRASE,
                                           Constants.Param.REDIRECT_LINK: TEST_LINK},
                                          expect_errors=True)
-            self.assertEqual(response.status_int, 302)
+            self.assertEqual(response.status_int, 400)
         self.assertTrue(mockInsertAction.call_args is None)
 
     def testAddInvokesInsertActionWhenDataPresent(self):
