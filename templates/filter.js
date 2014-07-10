@@ -1,5 +1,8 @@
 function clearExistingData() {
-    $('#redirect_data').html('');
+    $('#redirects_table tr[id!="header_row"]').each(
+	function(i, el) { 
+	    $(el).remove();
+	});
 }
 
 function showFilterLoading() {
@@ -7,7 +10,7 @@ function showFilterLoading() {
 }
 
 function stopFilterLoading() {
-    $('#redirects_table').progressbar({disabled: false});
+    $('#redirects_table').progressbar('destroy');
 }
 
 var filterAjax;
@@ -39,7 +42,11 @@ function processFilterResult(data, textStatus, jqXHR){
 	    '</tr>';
 	dataHtml.push(elHtml);
     }
-    $('#redirect_data').html(dataHtml.join('\n'));
+    if (data.length == 0) {
+	dataHtml = ['<tr><td colspan="4">No results to show, use the form below to add</td></tr>'];
+    }
+    stopFilterLoading();
+    $('#redirects_table tr[id="header_row"]').after(dataHtml.join('\n'));
 }
 
 function processFilterFailure(jqXHR, textStatus, errorThrown) {
