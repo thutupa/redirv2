@@ -19,8 +19,11 @@ def DeleteAction(key):
     key.delete()
 
 def SearchAction(userId, phrase):
-    matchingActionsQuery = Action.query(Action.keywords.IN(SplitPhrase(phrase)),
-                                        ancestor=GetAccountKey(userId))
+    if phrase:
+        matchingActionsQuery = Action.query(Action.keywords.IN(SplitPhrase(phrase)),
+                                            ancestor=GetAccountKey(userId))
+    else:
+        matchingActionsQuery = Action.query(ancestor=GetAccountKey(userId))
     return matchingActionsQuery.fetch()
 
 # temporary import of MAX_NUM_KEYWORDS
