@@ -100,6 +100,17 @@ class ActionTestCase(unittest.TestCase):
       self.assertEqual(1, len(searchResults))
       self.assertEqual(TEST_LINK, searchResults[0].redirect_link)
 
+  def testSearchActionMatchesEverythingOnEmptyPhrase(self):
+    TEST_USER_ID = 'testUserId'
+    TEST_KEY_WORDS = ['test', 'key', 'word']
+    TEST_LINK = 'https://www.google.com/shopping/express'
+    
+    accountKey = GetAccountKey(TEST_USER_ID)
+    actionKey = InsertAction(TEST_USER_ID, ' '.join(TEST_KEY_WORDS), TEST_LINK)
+    searchResults = SearchAction(TEST_USER_ID, '')
+    self.assertEqual(1, len(searchResults))
+    self.assertEqual(TEST_LINK, searchResults[0].redirect_link)
+
   def testKeyphraseSplitsWords(self):
     TEST_KEY_WORDS = ['key', 'words', 'test']
     keyPhrase = ' '.join(TEST_KEY_WORDS)
