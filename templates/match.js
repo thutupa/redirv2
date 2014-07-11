@@ -5,32 +5,32 @@ function clearExistingData() {
 	});
 }
 
-function showFilterLoading() {
+function showMatchLoading() {
     $('#redirects_table').progressbar({disabled: false, value: false});
 }
 
-function stopFilterLoading() {
+function stopMatchLoading() {
     $('#redirects_table').progressbar('destroy');
 }
 
-var filterAjax;
+var matchAjax;
 
-function invokeFilter(e) {
-    filterAjax = $.ajax({
+function invokeMatch(e) {
+    matchAjax = $.ajax({
 	url: '{{Constants.Path.MATCH_PATH}}',
-	dataFilter: function(data, type) {
+	dataMatch: function(data, type) {
 	    return data.substring('{{Constants.JSON_PREFIX}}'.length);
 	},
-	data: {'{{Constants.Param.MATCH}}': $('#filterphrase').val()},
+	data: {'{{Constants.Param.MATCH}}': $('#matchphrase').val()},
 	dataType: 'json',
-	success: processFilterResult,
-	error: processFilterFailure,
+	success: processMatchResult,
+	error: processMatchFailure,
     });
-    showFilterLoading();
+    showMatchLoading();
     e.preventDefault();
 }
 
-function processFilterResult(data, textStatus, jqXHR){
+function processMatchResult(data, textStatus, jqXHR){
     var dataHtml = [];
     for (var i=0; i < data.length; i++) {
 	var el = data[i];
@@ -45,13 +45,13 @@ function processFilterResult(data, textStatus, jqXHR){
     if (data.length == 0) {
 	dataHtml = ['<tr><td colspan="4">No results to show, use the form below to add</td></tr>'];
     }
-    stopFilterLoading();
+    stopMatchLoading();
     $('#redirects_table tr[id="header_row"]').after(dataHtml.join('\n'));
 }
 
-function processFilterFailure(jqXHR, textStatus, errorThrown) {
+function processMatchFailure(jqXHR, textStatus, errorThrown) {
     alert("Failed to fetch data");
 }
 
-$('#filterform').submit(invokeFilter);
-$('#filterform').submit();
+$('#matchform').submit(invokeMatch);
+$('#matchform').submit();
